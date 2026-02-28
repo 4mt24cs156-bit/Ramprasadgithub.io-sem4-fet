@@ -1,10 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Hello World Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Web Trio: HTML, CSS, JS</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --suit-blue: #7ba3cc;
+            --bone-white: #e0e0e0;
+            --text-dark: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            gap: 40px;
+            color: var(--text-dark);
+        }
+
+        .container {
+            text-align: center;
+            width: 200px;
+        }
+
+        /* --- CHARACTER BASE STRUCTURE --- */
+        .character {
+            position: relative;
+            height: 250px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .head { width: 50px; height: 60px; border: 2px solid #555; border-radius: 50%; background: white; z-index: 2; }
+        .torso { width: 60px; height: 80px; border: 2px solid #555; margin-top: -5px; background: white; border-radius: 5px; }
+        .limbs { display: flex; gap: 40px; margin-top: -80px; }
+        .leg { width: 15px; height: 70px; border: 2px solid #555; background: white; margin-top: 80px; }
+
+        /* --- CSS LAYER (The Suit) --- */
+        .styled .head { background: #ffdbac; border-color: #333; }
+        .styled .torso { 
+            background: var(--suit-blue); 
+            border-radius: 10px 10px 0 0;
+            border-color: #2980b9;
+            box-shadow: inset 0 10px 0 #fff; /* Represents the shirt */
+        }
+        .styled .leg { background: #5d6d7e; border-color: #2c3e50; }
+
+        /* --- JS LAYER (Behavior/Animation) --- */
+        @keyframes dance {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+
+        .interactive {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .dancing {
+            animation: dance 0.6s infinite alternate ease-in-out;
+        }
+
+        .sparkle {
+            position: absolute;
+            color: gold;
+            font-size: 24px;
+            pointer-events: none;
+            animation: sparkle 0.8s forwards;
+        }
+
+        h3 { margin-top: 10px; font-weight: bold; }
+        button { margin-top: 15px; padding: 8px 16px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; }
+    </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
+
+    <!-- COLUMN 1: HTML ONLY -->
+    <div class="container">
+        <div class="character">
+            <div class="head"></div>
+            <div class="torso"></div>
+            <div class="limbs">
+                <div class="leg"></div>
+                <div class="leg"></div>
+            </div>
+        </div>
+        <h3>HTML</h3>
+        <p><small>The Structure (The Bones)</small></p>
+    </div>
+
+    <!-- COLUMN 2: HTML + CSS -->
+    <div class="container">
+        <div class="character styled">
+            <div class="head"></div>
+            <div class="torso"></div>
+            <div class="limbs">
+                <div class="leg"></div>
+                <div class="leg"></div>
+            </div>
+        </div>
+        <h3>HTML + CSS</h3>
+        <p><small>The Presentation (The Suit)</small></p>
+    </div>
+
+    <!-- COLUMN 3: HTML + CSS + JS -->
+    <div class="container">
+        <div class="character styled interactive" id="js-character">
+            <div class="head"></div>
+            <div class="torso"></div>
+            <div class="limbs">
+                <div class="leg"></div>
+                <div class="leg"></div>
+            </div>
+        </div>
+        <h3>HTML + CSS + JS</h3>
+        <button onclick="toggleLogic()">Toggle JavaScript</button>
+    </div>
+
+    <script>
+        function toggleLogic() {
+            const char = document.getElementById('js-character');
+            char.classList.toggle('dancing');
+            
+            if(char.classList.contains('dancing')) {
+                createSparkle();
+            }
+        }
+
+        function createSparkle() {
+            const char = document.getElementById('js-character');
+            for(let i=0; i<3; i++) {
+                const span = document.createElement('span');
+                span.innerText = '✦';
+                span.className = 'sparkle';
+                span.style.left = Math.random() * 100 + '%';
+                span.style.top = Math.random() * 100 + '%';
+                char.appendChild(span);
+                setTimeout(() => span.remove(), 800);
+            }
+        }
+    </script>
 </body>
 </html>
-
