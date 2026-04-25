@@ -1,77 +1,29 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Introduction</title>
-<style>/* style.css */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-    text-align: center;
-}
+    <title>Intro Page</title>
+   body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f0f0; }
+.card { background: white; padding: 2rem; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+button { margin-top: 10px; padding: 10px; cursor: pointer; }
 
-.hero {
-    background-color: #007bff;
-    color: white;
-    padding: 100px 20px;
-}
-
-.about {
-    padding: 50px 20px;
-    max-width: 600px;
-    margin: auto;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-</style>
 </head>
 <body>
-    <header class="hero">
-        <h1 id="greeting">Hello, I'm Ram Prasad pai!</h1>
-        <p>Welcome to my personal introduction page.</p>
-        <button id="changeText">Click for a surprise!</button>
-    </header>
-
-    <section class="about">
-        <h2>I am studying from Mangalore institute of technology Engineering in the branch of Computer Science & Engineering</h2>
-        <p>I am an aspiring developer learning how to build simple and effective web pages using HTML, CSS, and JavaScript.</p>
-    </section>
-
-    <script >// script.js
-// Function to handle the greeting
-document.getElementById('colorBtn').addEventListener('click', function() {
-    // 1. Ask the user for their name
-    let userName = prompt("Please enter your name:", "Guest");
-
-    // 2. Check if the user entered something
-    if (userName != null && userName !== "") {
-        // 3. Show a personalized alert
-        alert("Hello, " + userName + "! Welcome to my page.");
-        
-        // Bonus: Update the page text with their name
-        document.getElementById('name').innerText = userName;
-    } else {
-        alert("You didn't enter a name, but welcome anyway!");
+    <div class="card">
+        <h1>Welcome, <span id="display-name">Guest</span>!</h1>
+        <p id="display-bio">Click the button to introduce yourself.</p>
+        <button onclick="updateProfile()">Update Info</button>
+    </div>
+    <script>function updateProfile() {
+    let name = prompt("What is your name?");
+    let bio = prompt("One cool thing about you?");
+    if (name) {
+        document.getElementById('display-name').innerText = name;
+        document.getElementById('display-bio').innerText = bio;
+        alert("Welcome, " + name + "!");
     }
-
-    // Change the theme color as before
-    const randomColor = Math.floor(Math.random()*16777215).toString(16);
-    document.body.style.backgroundColor = "#" + randomColor;
-});
-
+}
+window.onload = updateProfile;
 </script>
 </body>
 </html>
